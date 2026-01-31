@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2f703b8beeaf343bfc6d1baf1a021a, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  cardName: 
+  cardName: 2
   explanation: 
   baseCard: {fileID: 0}
   cardMaterial: {fileID: 0}
-  cardValue: 0
+  cardValue: 2

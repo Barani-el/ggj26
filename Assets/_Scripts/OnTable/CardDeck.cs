@@ -57,4 +57,16 @@ public class CardDeck : MonoBehaviour
             listToShuffle[n] = value;
         }
     }
+
+    public BaseCardSO DrawCard()
+    {
+        if (playDeck.Count < 1)
+        {
+            return null;
+        }
+
+        BaseCardSO drawnCard = playDeck[0];
+        playDeck.RemoveAt(0);
+        return drawnCard;
+    }
 }
