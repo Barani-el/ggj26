@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour,IInteractable
 {
     public BaseCardSO card;
     public event Action CardChanged;
@@ -20,5 +20,15 @@ public class Slot : MonoBehaviour
         card = null;
         Debug.Log("Slot Temizlendi");
         CardChanged?.Invoke();
+    }
+    public void Interact()
+    {
+        CardController _card = PlayerInputHandler.instance.selectedCard.GetComponent<CardController>();
+        if (_card != null)
+        {
+            card = _card.currentData;
+            PlayerInputHandler.instance.selectedCard.transform.position = transform.position;
+            PlayerInputHandler.instance.selectedCard.transform.rotation = transform.rotation;
+        }
     }
 }
