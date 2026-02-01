@@ -3,13 +3,15 @@ using TMPro;
 using UnityEngine;
 
 public enum TurnPhase
-{
-    Preparation,      
+{   
+    None,
+    CardDeal,
+    Preparation,  
+    CardReveal,
     DiceRoll,         
     ScoreCalculation, 
     PawnMovement,     
-    Reactions,      
-    CardDeal,         
+    Reactions,             
     TurnEnd
 }
 
@@ -22,11 +24,11 @@ public class TurnManager : MonoBehaviour
     public TurnPhase currentPhase;
 
     [SerializeField] TextMeshProUGUI timerText;
-    float prepTimer;
-    private const float prepTime=30;
-    private const float readyTime = 3;
+    public float prepTimer = 10;
+    private const float prepTime=10;
+    private  float readyTime = 3;
     private bool playerReady;
-    public bool CanPlayerMove => currentPhase == TurnPhase.Preparation;
+    public bool CanPlayerMove => currentPhase == TurnPhase.Preparation || currentPhase ==TurnPhase.None;
 
     private void Awake()
     {
@@ -35,24 +37,18 @@ public class TurnManager : MonoBehaviour
     }
     private void Start()
     {
-        DealInitialCards(4);
+        
     }
 
     private void Update()
     {
         HandlePreperationTime();
     }
-    public void DealInitialCards(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            DrawCardFor(playerHand);
-            DrawCardFor(pcHand);
-        }
-    }
+    
     public void DrawCardFor(GameEntity targetEntity)
     {
         if (targetEntity == null) return;
+      
 
         BaseCardSO card = CardDeck.instance.DrawCard();
         
@@ -60,7 +56,8 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("SEA BEN GELDÝM");
 
-            GameObject cardObj = Instantiate(cardPrefab, targetEntity.cardPoses[targetEntity.inventory.Count ].position, Quaternion.Euler(90,0,0),targetEntity.transform); //üretim burada ama animasyon gelecek buraya
+            GameObject cardObj = Instantiate(cardPrefab, targetEntity.cardPoses[targetEntity.inventory.Count ].position, Quaternion.Euler(90,0,0),targetEntity.transform);
+            //üretim burada ama animasyon gelecek buraya
 
             CardController controller = cardObj.GetComponent<CardController>();
             controller.SetUp(card);
@@ -73,11 +70,13 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    
+
     //               PHASE                //
 
 
 
-    public void StartGame() => SetPhase(TurnPhase.Preparation);
+    public void StartGame() => SetPhase(TurnPhase.CardDeal);
 
     public void SetPhase(TurnPhase phase  )
     {
@@ -85,8 +84,13 @@ public class TurnManager : MonoBehaviour
 
         switch (phase)
         {
+            case TurnPhase.CardDeal:
+                DealCards();
+                break;
             case TurnPhase.Preparation:
                 StartPrepare();
+                break;
+            case TurnPhase.CardReveal:
                 break;
             case TurnPhase.DiceRoll:
                 StartDiceRoll();
@@ -100,9 +104,8 @@ public class TurnManager : MonoBehaviour
             case TurnPhase.Reactions:
                 PlayReactions();
                 break;
-            case TurnPhase.CardDeal:
-                DealCards();
-                break;
+           
+               
             case TurnPhase.TurnEnd:
                 EndTurn();
                 break;
@@ -111,6 +114,23 @@ public class TurnManager : MonoBehaviour
 
     private void NextPhase() => SetPhase(currentPhase + 1);
 
+
+    void DealCards()
+    {
+        StartCoroutine(DealInitialCards());
+        
+    }
+    public IEnumerator DealInitialCards()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log("for içinde");
+            DrawCardFor(playerHand);
+            DrawCardFor(pcHand);
+            yield return new WaitForSeconds(0.5f);
+        }
+        NextPhase();
+    }
     void StartPrepare()
     {
         prepTimer = prepTime;
@@ -120,10 +140,10 @@ public class TurnManager : MonoBehaviour
 
     void HandlePreperationTime()
     {
-
+        if (currentPhase != TurnPhase.Preparation) return;
         prepTimer -= Time.deltaTime;
-        
-        if (prepTime < 0)
+
+        if (prepTimer < 0)
         {
             EventManager.PreparationEnd();
             NextPhase();
@@ -160,12 +180,6 @@ public class TurnManager : MonoBehaviour
     {
 
     }
-
-    void DealCards()
-    {
-
-    }
-
     void EndTurn()
     {
 

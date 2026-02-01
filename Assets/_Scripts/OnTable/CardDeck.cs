@@ -32,6 +32,7 @@ public class CardDeck : MonoBehaviour
     }
     public void PrepareDeck()
     {
+        
         foreach (var card in cardList)
         {
             for (int i = 0; i < card.amount; i++)
@@ -64,7 +65,7 @@ public class CardDeck : MonoBehaviour
         {
             return null;
         }
-
+        
         BaseCardSO drawnCard = playDeck[0];
         playDeck.RemoveAt(0);
         return drawnCard;

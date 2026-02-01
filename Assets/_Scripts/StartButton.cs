@@ -16,6 +16,7 @@ public class StartButton : MonoBehaviour,IInteractable
 
     public void Interact()
     {
+        if (TurnManager.instance.currentPhase != TurnPhase.None) return;
         Debug.Log("OYUN BAÞLASIN!!!");
         TurnManager.instance.StartGame();
     }

@@ -6,6 +6,7 @@ public class EventManager : MonoBehaviour
     public static EventManager instance;
     public static event Action OnPrepareStart;
     public static event Action OnPrepareEnd;
+    public static event Action OnCardReveal;
     public static event Action OnDiceRollStart;
     public static event Action<int[]> OnDiceRollComplete; // zar sonuçlarý
     public static event Action<int> OnScoreCalculated;    // toplam skor
@@ -16,6 +17,7 @@ public class EventManager : MonoBehaviour
 
     public static void PreparationStart() => OnPrepareStart?.Invoke();
     public static void PreparationEnd() => OnPrepareEnd?.Invoke();
+    public static void CardReveal() => OnCardReveal?.Invoke();
     public static void DiceRollStart() => OnDiceRollStart?.Invoke();
     public static void DiceRollComplete(int[] results) => OnDiceRollComplete?.Invoke(results);
     public static void ScoreCalculated(int total) => OnScoreCalculated?.Invoke(total);
