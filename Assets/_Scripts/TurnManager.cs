@@ -1,10 +1,16 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
-public enum states
+public enum TurnPhase
 {
-    Prepare,
-    Animation,
-    Dice
+    Preparation,      
+    DiceRoll,         
+    ScoreCalculation, 
+    PawnMovement,     
+    Reactions,      
+    CardDeal,         
+    TurnEnd
 }
 
 public class TurnManager : MonoBehaviour
@@ -13,8 +19,14 @@ public class TurnManager : MonoBehaviour
     public GameEntity playerHand;
     public GameEntity pcHand;
     public GameObject cardPrefab;
-    public states currentState;
-    public bool CanPlayerMove => currentState == states.Prepare;
+    public TurnPhase currentPhase;
+
+    [SerializeField] TextMeshProUGUI timerText;
+    float prepTimer;
+    private const float prepTime=30;
+    private const float readyTime = 3;
+    private bool playerReady;
+    public bool CanPlayerMove => currentPhase == TurnPhase.Preparation;
 
     private void Awake()
     {
@@ -24,6 +36,11 @@ public class TurnManager : MonoBehaviour
     private void Start()
     {
         DealInitialCards(4);
+    }
+
+    private void Update()
+    {
+        HandlePreperationTime();
     }
     public void DealInitialCards(int count)
     {
@@ -54,5 +71,103 @@ public class TurnManager : MonoBehaviour
          
          
         }
+    }
+
+    //               PHASE                //
+
+
+
+    public void StartGame() => SetPhase(TurnPhase.Preparation);
+
+    public void SetPhase(TurnPhase phase  )
+    {
+        currentPhase = phase;
+
+        switch (phase)
+        {
+            case TurnPhase.Preparation:
+                StartPrepare();
+                break;
+            case TurnPhase.DiceRoll:
+                StartDiceRoll();
+                break;
+            case TurnPhase.ScoreCalculation:
+                CalculateScore();
+                break;
+            case TurnPhase.PawnMovement:
+                MovePawns();
+                break;
+            case TurnPhase.Reactions:
+                PlayReactions();
+                break;
+            case TurnPhase.CardDeal:
+                DealCards();
+                break;
+            case TurnPhase.TurnEnd:
+                EndTurn();
+                break;
+        }
+    }
+
+    private void NextPhase() => SetPhase(currentPhase + 1);
+
+    void StartPrepare()
+    {
+        prepTimer = prepTime;
+        playerReady = false;
+        EventManager.PreparationStart();
+    }
+
+    void HandlePreperationTime()
+    {
+
+        prepTimer -= Time.deltaTime;
+        
+        if (prepTime < 0)
+        {
+            EventManager.PreparationEnd();
+            NextPhase();
+        }
+        else
+        {
+            timerText.text = prepTimer.ToString();
+        }
+    }
+
+    public void PlayerReady()
+    {
+        if (!playerReady && currentPhase == TurnPhase.Preparation)
+        {
+            playerReady = true;
+            prepTimer = Mathf.Min(prepTimer, readyTime);
+        }
+    }
+    void StartDiceRoll()
+    {
+        EventManager.DiceRollStart();
+    }
+
+    void CalculateScore()
+    {
+
+    }
+
+    void MovePawns()
+    {
+
+    }
+    void PlayReactions()
+    {
+
+    }
+
+    void DealCards()
+    {
+
+    }
+
+    void EndTurn()
+    {
+
     }
 }
