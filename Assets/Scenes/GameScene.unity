@@ -2927,6 +2927,97 @@ Transform:
   - {fileID: 334689234}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6744111877978154653
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 211400968260662495, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e7a6fb8f20c97654d820ce31f21f1495, type: 2}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.1021786
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9468731
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.8526356
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343234680249798576, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868976801669584138, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      propertyPath: m_Name
+      value: BIRADETKART
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1868976801669584138, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6744111877978154655}
+  m_SourcePrefab: {fileID: 100100000, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+--- !u!1 &6744111877978154654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1868976801669584138, guid: 27a99990411036c4f831f4d916349d09, type: 3}
+  m_PrefabInstance: {fileID: 6744111877978154653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6744111877978154655
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744111877978154654}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2af42895dff1aee4791883ca6ab06826, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2945,3 +3036,4 @@ SceneRoots:
   - {fileID: 64393910}
   - {fileID: 815427865}
   - {fileID: 1549993836}
+  - {fileID: 6744111877978154653}
